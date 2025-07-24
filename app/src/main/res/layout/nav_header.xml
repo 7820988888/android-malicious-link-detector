@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/background_gradient"
+    android:gravity="bottom">
+
+    <!-- Circular Profile Image -->
+    <ImageView
+        android:id="@+id/profileImageView"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_profile"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/circle_bg"
+        android:padding="2dp" />
+
+    <!-- User Name -->
+    <TextView
+        android:id="@+id/userNameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your Name"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="8dp" />
+
+    <!-- User Email -->
+    <TextView
+        android:id="@+id/userEmailTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="you@example.com"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        android:gravity="center_horizontal" />
+</LinearLayout>

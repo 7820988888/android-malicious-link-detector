@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="Privacy Policy"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginBottom="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="We respect your privacy and are committed to protecting your data. Please read this policy carefully to understand how your information is handled."
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_marginBottom="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="• Data Collection:"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="We collect only login credentials necessary for authentication. No additional personal data is collected without your consent."
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_marginBottom="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="• URL Scanning &amp; Storage:"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="URLs you scan are processed temporarily in your device for security checks and are not stored or shared without your explicit permission."
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_marginBottom="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="• Real-Time URL Detection:"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="With your permission, the app listens to notifications on your device to detect malicious links in real-time. Notification content may be parsed temporarily to ensure safety."
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_marginBottom="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="• Usage &amp; Tracking:"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="The app does not track your device usage, browsing history, or personal activities. All data stays on your device unless you choose to share it."
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_marginBottom="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="• User Control &amp; Settings:"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="Features like real-time alerts, history logging, notification access, and app lock are fully user-controlled and configurable via the settings page."
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_marginBottom="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="• Data Security:"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="We implement best practices and secure protocols to protect your data, including encrypted connections when communicating with servers for threat intelligence."
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_marginBottom="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="• Payment &amp; Subscription:"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="Subscription details (if applicable) are handled securely via trusted payment platforms like Google Play Billing. We do not store your payment information directly."
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_marginBottom="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="By using this app, you agree to our Privacy Policy and Terms of Use."
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</ScrollView>

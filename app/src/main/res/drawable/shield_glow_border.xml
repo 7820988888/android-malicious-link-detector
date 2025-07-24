@@ -1,0 +1,16 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Outer glowing border -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+            <stroke
+                android:width="4dp"
+                android:color="#87CEFA" /> <!-- Light Sky Blue Border -->
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+
+    <!-- Inner image placeholder -->
+    <item android:drawable="@drawable/shield" />
+</layer-list>

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "778214727200",
+    "project_id": "maliciousurldetector-762b9",
+    "storage_bucket": "maliciousurldetector-762b9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778214727200:android:4fa323c6bb092059462645",
+        "android_client_info": {
+          "package_name": "com.example.maliciousurldetector"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "778214727200-ibdrojul6f7sqeveqfjtv6sotiopb7li.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.maliciousurldetector",
+            "certificate_hash": "581e530d22500676d2faca75c316db9c66cd30c2"
+          }
+        },
+        {
+          "client_id": "778214727200-2kakgbud9b442mvd1lufhktccd1625r1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBf2zzYzq6emUWjwncYPMdVlaQiAb2f-l8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "778214727200-2kakgbud9b442mvd1lufhktccd1625r1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

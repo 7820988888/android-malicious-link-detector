@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
+    android:padding="16dp">
+
+    <!-- ✅ Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:title="Settings"
+        app:titleTextColor="#FFFFFF" />
+
+    <!-- ✅ Settings Switches -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Notifications -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingVertical="8dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Enable Notifications"
+                    android:textSize="16sp"
+                    android:textColor="#000000"/>
+                <Switch
+                    android:id="@+id/switch_notifications"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!-- Real-time Detection -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingVertical="8dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Enable Real-Time URL Detection"
+                    android:textSize="16sp"
+                    android:textColor="#000000"/>
+                <Switch
+                    android:id="@+id/switch_realtime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!-- Safe Browsing -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingVertical="8dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Safe Browsing Redirect"
+                    android:textSize="16sp"
+                    android:textColor="#000000"/>
+                <Switch
+                    android:id="@+id/switch_safe_browsing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!-- Dark Mode -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingVertical="8dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Enable Dark Mode"
+                    android:textSize="16sp"
+                    android:textColor="#000000"/>
+                <Switch
+                    android:id="@+id/switch_dark_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!-- Sound Toggle -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingVertical="8dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Notification Sound"
+                    android:textSize="16sp"
+                    android:textColor="#000000"/>
+                <Switch
+                    android:id="@+id/switch_sound"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!-- Clear History Button -->
+            <Button
+                android:id="@+id/btn_clear_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Clear History"
+                android:backgroundTint="#E91E63"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="16dp" />
+
+            <!-- Set App Lock Button -->
+            <Button
+                android:id="@+id/btn_set_applock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Set App Lock"
+                android:backgroundTint="#FF9800"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="12dp" />
+
+            <!-- Language Spinner -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Language"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:layout_marginTop="16dp"/>
+            <Spinner
+                android:id="@+id/language_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

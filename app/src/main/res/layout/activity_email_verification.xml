@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="#121212">
+
+    <TextView
+        android:id="@+id/messageTextView"
+        android:text="📩 A verification email has been sent to your email.\nPlease verify it to continue."
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:layout_marginBottom="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btnResendEmail"
+        android:text="Resend Verification Email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btnAlreadyVerified"
+        android:text="I’ve Verified My Email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp" />
+
+</LinearLayout>

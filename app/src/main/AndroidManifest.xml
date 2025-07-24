@@ -1,23 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.maliciousurldetector">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- ✅ Permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        <activity android:name=".MainActivity">
+        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <!-- ✅ Firebase & Google -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="MaliciousURL_Channel" />
+
+        <!-- ✅ Launcher -->
+        <activity android:name=".SplashActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <!-- ✅ Authentication -->
+        <activity android:name=".LoginActivity" android:exported="false" />
+        <activity android:name=".RegistrationActivity" android:exported="false" />
+        <activity android:name=".ForgotPasswordActivity" android:exported="false" />
+        <activity android:name=".EmailVerificationActivity" android:exported="false" />
+
+        <!-- ✅ Core Activities -->
+        <activity android:name=".MainActivity" android:exported="false" />
+        <activity android:name=".DashboardActivity" android:exported="false" />
+
+        <!-- ✅ Feature Activities -->
+        <activity android:name=".CheckAppActivity" android:exported="false" />
+        <activity android:name=".URLScanActivity" android:exported="false" />
+        <activity android:name=".CallerProtectionActivity" android:exported="false" />
+        <activity android:name=".SubscriptionActivity" android:exported="false" />
+        <activity android:name=".HistoryActivity" android:exported="false" />
+        <activity android:name=".SettingsActivity" android:exported="false" />
+        <activity android:name=".PrivacyPolicyActivity" android:exported="false" />
+        <activity android:name=".AboutActivity" android:exported="false" />
+
+        <!-- ✅ Clipboard Listener: Foreground Service support -->
+        <service
+            android:name=".ClipboardListenerService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <!-- ✅ Firebase Messaging -->
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!-- ✅ Notification Listener -->
+        <service
+            android:name=".NotificationListener"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.service.notification.extra.BIND_ALLOWED"
+                android:value="true" />
+        </service>
+
+        <!-- ✅ URL Broadcast Receiver -->
+        <receiver android:name=".UrlReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.maliciousurldetector.CHECK_URL" />
+            </intent-filter>
+        </receiver>
+
+        <!-- ✅ Supporting Services -->
+        <service android:name=".URLCheckService" android:exported="false" />
+        <service android:name=".NotificationService" android:exported="false" />
+
+    </application>
 </manifest>

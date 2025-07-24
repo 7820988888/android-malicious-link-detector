@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/safe"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/subscriptionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose a Subscription Plan"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Free Trial Plan Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:layout_margin="8dp"
+            android:elevation="4dp"
+            android:backgroundTint="#FFFFFF"
+            android:gravity="center"
+            android:background="@android:color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Free Trial Plan"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#000000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="First 3 URLs Free"
+                android:textSize="14sp"
+                android:textColor="#666666"
+                android:layout_marginTop="8dp" />
+
+            <Button
+                android:id="@+id/selectFreeTrial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#4CAF50"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <!-- Monthly Plan Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:layout_margin="8dp"
+            android:elevation="4dp"
+            android:backgroundTint="#FFFFFF"
+            android:gravity="center"
+            android:background="@android:color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monthly Plan"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#000000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="₹200 / month"
+                android:textSize="14sp"
+                android:textColor="#666666"
+                android:layout_marginTop="8dp" />
+
+            <Button
+                android:id="@+id/selectMonthly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Subscribe"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#2196F3"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <!-- 3-Months Pro Plan Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:layout_margin="8dp"
+            android:elevation="4dp"
+            android:backgroundTint="#FFFFFF"
+            android:gravity="center"
+            android:background="@android:color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pro Plan"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#000000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="₹350 / 3 months"
+                android:textSize="14sp"
+                android:textColor="#666666"
+                android:layout_marginTop="8dp" />
+
+            <Button
+                android:id="@+id/selectPro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Subscribe"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#9C27B0"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <!-- Terms and Conditions -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="By subscribing, you agree to our Terms of Service and Privacy Policy."
+            android:textSize="12sp"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp" />
+    </LinearLayout>
+</ScrollView>

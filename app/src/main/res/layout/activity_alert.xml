@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background_gradient"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/alertTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Security Alerts"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/alertText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Malicious URL detected!"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+
+    <ListView
+        android:id="@+id/alertListView"
+        android:layout_width="572dp"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

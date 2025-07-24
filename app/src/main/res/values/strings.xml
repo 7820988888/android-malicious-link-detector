@@ -1,3 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Malicious URL Detector</string>
+
+        <!-- ✅ App Name -->
+        <string name="app_name">Safe Link Detection</string>
+
+        <!-- ✅ Drawer Descriptions (used in MainActivity toggle) -->
+        <string name="navigation_drawer_open">Open drawer</string>
+        <string name="navigation_drawer_close">Close drawer</string>
+
+        <!-- ✅ Main Page Buttons -->
+        <string name="check_url">CHECK URL</string>
+        <string name="check_app">CHECK APP</string>
+        <string name="enter_url">Enter URL</string>
+
+        <!-- ✅ Subscription Page -->
+        <string name="choose_plan">Choose a Subscription Plan</string>
+        <string name="free_trial">FREE - 3 Trial</string>
+        <string name="one_month">₹200 - 1 MONTH</string>
+        <string name="three_month">₹350 - 3 MONTHS</string>
+
+        <!-- ✅ Firebase + Google Sign-In -->
+        <string name="google_api_key">AIzaSyBf2zzYzq6emUWjwncYPMdVlaQiAb2f-l8</string>
+        <string name="default_web_client_id">778214727200-ibdrojul6f7sqeveqfjtv6sotiopb7li.apps.googleusercontent.com</string>
+
+        <!-- ✅ 🛡️ VirusTotal API Key -->
+        <string name="virustotal_api_key">2fd34ef2f7b2a76b4cce6b5cd0903378c8ec18ea490c3712d34dbde9e06e121f</string>
+
+        <!-- ✅ Settings Page -->
+        <string name="settings_title">Settings</string>
+        <string name="enable_notifications">Enable Notifications</string>
+        <string name="enable_real_time_detection">Enable Real-Time Detection</string>
+        <string name="safe_browsing">Safe Browsing Redirect</string>
+        <string name="dark_mode">Enable Dark Mode</string>
+        <string name="notification_sound">Notification Sound</string>
+        <string name="clear_history">Clear History</string>
+        <string name="set_app_lock">Set App Lock</string>
+        <string name="language">Language</string>
+
+        <!-- ✅ Login/Register UI -->
+        <string name="login_title">Log In</string>
+        <string name="login_with_google">Continue with Google</string>
+        <string name="register_now">New user? Register Now</string>
+        <string name="forgot_password">Forgot Password?</string>
+        <string name="privacy_policy_text">I agree to the Privacy Policy &amp; Terms of Use</string>
+
+        <!-- ✅ Drawer Navigation Items -->
+        <string name="nav_subscription">📦  My Subscription</string>
+        <string name="nav_history">🕓  Subscription History</string>
+        <string name="nav_settings">⚙️  Settings</string>
+        <string name="nav_privacy">🔒  Privacy Policy</string>
+        <string name="nav_logout">🚪  Logout</string>
+
 </resources>
