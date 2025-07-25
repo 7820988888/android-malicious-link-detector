@@ -97,6 +97,7 @@
         <!-- ✅ Supporting Services -->
         <service android:name=".URLCheckService" android:exported="false" />
         <service android:name=".NotificationService" android:exported="false" />
+        <service android:name=".StartupService" android:exported="false" />
 
     </application>
 </manifest>

@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         btnNotificationAccess.setOnClickListener(v -> requestNotificationAccess());
 
         checkNotificationPermission();
+        initializeRealTimeProtection();
         handleClipboardOnLaunch();
         handleIncomingIntent();
     }
@@ -260,6 +261,11 @@ public class MainActivity extends AppCompatActivity {
     private void requestNotificationAccess() {
         Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
         startActivity(intent);
+    }
+
+    private void initializeRealTimeProtection() {
+        Intent startupIntent = new Intent(this, StartupService.class);
+        startService(startupIntent);
     }
 
     private void checkNotificationPermission() {
