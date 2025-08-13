@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#222042"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center"
+    tools:context=".SafeWebsiteActivity">
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose a Category"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="#F0F0F0"
+        android:layout_marginBottom="32dp" />
+
+    <Button
+        android:id="@+id/shoppingSitesBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🛍️  Online Shopping Sites"
+        android:background="@drawable/rounded_button"
+        android:textColor="#FFFFFF"
+        android:padding="16dp"
+        android:layout_marginBottom="24dp" />
+
+    <Button
+        android:id="@+id/foodSitesBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🍔  Food Delivery Sites"
+        android:background="@drawable/rounded_button"
+        android:textColor="#FFFFFF"
+        android:padding="16dp"
+        android:layout_marginBottom="24dp" />
+
+    <!-- ✅ New Button for Secure App Download -->
+    <Button
+        android:id="@+id/secureAppBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🔐  Secure App Download"
+        android:background="@drawable/rounded_button"
+        android:textColor="#FFFFFF"
+        android:padding="16dp"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>

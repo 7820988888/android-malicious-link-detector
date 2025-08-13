@@ -1,10 +1,9 @@
-// Full MainActivity.java — clipboard + intent + malicious alert + browser choice
+// unchanged package and imports
 package com.example.maliciousurldetector;
 
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.ClipData;
-import android.content.ActivityNotFoundException;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -12,10 +11,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
+import android.os.*;
 import android.provider.Settings;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navView;
     private Toolbar toolbar;
-
     private EditText urlInput;
     private Button btnCheckUrl, btnCheckApp, btnNotificationAccess;
 
@@ -59,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
-
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
@@ -85,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             if (!url.isEmpty()) {
                 scanUrl(url);
             } else {
-                Toast.makeText(this, "⚠️ Please enter a URL!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "\u26a0\ufe0f Please enter a URL!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -97,17 +91,108 @@ public class MainActivity extends AppCompatActivity {
         handleIncomingIntent();
     }
 
-    private void handleClipboardOnLaunch() {
-        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        if (clipboard != null && clipboard.hasPrimaryClip()) {
-            ClipData clip = clipboard.getPrimaryClip();
-            if (clip != null && clip.getItemCount() > 0) {
-                CharSequence pasteData = clip.getItemAt(0).getText();
-                if (pasteData != null) {
-                    String url = pasteData.toString().trim();
-                    if (url.startsWith("http")) {
-                        scanUrl(url);
+    private void scanUrl(String url) {
+        Toast.makeText(this, "\ud83d\udd0d Scanning...", Toast.LENGTH_SHORT).show();
+        boolean isApk = url.toLowerCase().endsWith(".apk");
+
+        UrlScanner.scan(this, url, new UrlScanner.ScanCallback() {
+            @Override
+            public void onResult(boolean isMalicious, String source) {
+                String reason;
+                if (isMalicious && isApk) {
+                    reason = "Malicious APK Detected";
+                } else if (isMalicious) {
+                    reason = "Malicious URL Detected by " + source;
+                } else if (isApk) {
+                    reason = "APK File - Use caution";
+                } else {
+                    reason = "URL is Safe";
+                }
+
+                if (isMalicious || isApk) {
+                    Toast.makeText(MainActivity.this, "\u274c " + reason, Toast.LENGTH_LONG).show();
+                    NotificationHelper.showSecurityAlert(MainActivity.this, url, reason);
+                    showAlarmDialog(url, reason);
+                } else {
+                    Toast.makeText(MainActivity.this, "\u2705 URL is safe", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                Toast.makeText(MainActivity.this, "\u274c Scan Error: " + error, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void showAlarmDialog(String url, String reason) {
+        new AlertDialog.Builder(this)
+                .setTitle("\u26a0\ufe0f Alert")
+                .setMessage(reason + "\n" + url)
+                .setIcon(R.drawable.ic_warning)
+                .setPositiveButton("Ignore", null)
+                .setNegativeButton("Open Anyway", (d, w) -> showBrowserChoiceDialog(url))
+                .show();
+
+        try {
+            MediaPlayer mp = MediaPlayer.create(this, R.raw.siren);
+            if (mp != null) {
+                mp.setOnCompletionListener(MediaPlayer::release);
+                mp.start();
+            }
+        } catch (Exception ignored) {}
+
+        Vibrator vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        if (vib != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vib.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE));
+            } else {
+                vib.vibrate(1000);
+            }
+        }
+    }
+
+    private void showBrowserChoiceDialog(String url) {
+        String[] browserNames = {
+                "\uD83C\uDF10 Chrome",
+                "\uD83E\uDD81 Brave",
+                "\uD83E\uDD8A Firefox",
+                "\uD83C\uDF0A Edge",
+                "\uD83C\uDFAD Opera",
+                "\uD83E\uDD86 DuckDuckGo"
+        };
+        String[] browserPackages = {
+                "com.android.chrome",
+                "com.brave.browser",
+                "org.mozilla.firefox",
+                "com.microsoft.emmx",
+                "com.opera.browser",
+                "com.duckduckgo.mobile.android"
+        };
+
+        new AlertDialog.Builder(this)
+                .setTitle("Open in Secure Browser?")
+                .setItems(browserNames, (dialog, which) -> {
+                    try {
+                        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        i.setPackage(browserPackages[which]);
+                        startActivity(i);
+                    } catch (Exception e) {
+                        Toast.makeText(this, "Browser not installed.", Toast.LENGTH_SHORT).show();
                     }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+    private void handleClipboardOnLaunch() {
+        ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        if (cm != null && cm.hasPrimaryClip()) {
+            ClipData cd = cm.getPrimaryClip();
+            if (cd != null && cd.getItemCount() > 0) {
+                CharSequence clipText = cd.getItemAt(0).getText();
+                if (clipText != null && clipText.toString().startsWith("http")) {
+                    scanUrl(clipText.toString());
                 }
             }
         }
@@ -123,9 +208,7 @@ public class MainActivity extends AppCompatActivity {
             }
         } else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
             Uri data = intent.getData();
-            if (data != null) {
-                url = data.toString();
-            }
+            if (data != null) url = data.toString();
         }
 
         if (url != null && url.startsWith("http")) {
@@ -133,83 +216,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void scanUrl(String url) {
-        Toast.makeText(this, "🔍 Scanning URL...", Toast.LENGTH_SHORT).show();
-
-        UrlScanner.scan(this, url, new UrlScanner.ScanCallback() {
-            @Override
-            public void onResult(boolean isMalicious, String source) {
-                if (isMalicious) {
-                    Toast.makeText(MainActivity.this, "❌ Malicious URL Detected by " + source, Toast.LENGTH_LONG).show();
-                    NotificationHelper.showSecurityAlert(MainActivity.this, url, source);
-                    showAlarmDialog(url);
-                    showBrowserChoiceDialog(url);
-                } else {
-                    Toast.makeText(MainActivity.this, "✅ URL seems safe!", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onError(String error) {
-                Toast.makeText(MainActivity.this, "❌ Scan Error: " + error, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void showAlarmDialog(String url) {
-        new AlertDialog.Builder(this)
-                .setTitle("⚠️ Malicious URL Detected!")
-                .setMessage("Suspicious link:\n" + url)
-                .setIcon(R.drawable.ic_warning)
-                .setPositiveButton("OK", null)
-                .show();
-
-        try {
-            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.siren);
-            if (mediaPlayer != null) {
-                mediaPlayer.setOnCompletionListener(MediaPlayer::release);
-                mediaPlayer.start();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    private boolean handleNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.nav_subscription) startActivity(new Intent(this, SubscriptionActivity.class));
+        else if (id == R.id.nav_history) startActivity(new Intent(this, HistoryActivity.class));
+        else if (id == R.id.nav_settings) startActivity(new Intent(this, SettingsActivity.class));
+        else if (id == R.id.nav_privacy) startActivity(new Intent(this, PrivacyPolicyActivity.class));
+        else if (id == R.id.nav_logout) {
+            Toast.makeText(this, "\uD83D\uDC4B Logging out...", Toast.LENGTH_SHORT).show();
+            FirebaseAuth.getInstance().signOut();
+            mGoogleSignInClient.signOut();
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
         }
-
-        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        if (vibrator != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                vibrator.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE));
-            } else {
-                vibrator.vibrate(1000);
-            }
-        }
-    }
-
-    private void showBrowserChoiceDialog(String maliciousUrl) {
-        final String[] browserNames = {"Chrome", "Brave", "Firefox", "Edge", "Opera", "DuckDuckGo"};
-        final String[] browserPackages = {
-                "com.android.chrome",
-                "com.brave.browser",
-                "org.mozilla.firefox",
-                "com.microsoft.emmx",
-                "com.opera.browser",
-                "com.duckduckgo.mobile.android"
-        };
-
-        new AlertDialog.Builder(this)
-                .setTitle("Open in Secure Browser")
-                .setItems(browserNames, (dialog, which) -> openInBrowser(maliciousUrl, browserPackages[which]))
-                .setNegativeButton("Cancel", null)
-                .show();
-    }
-
-    private void openInBrowser(String url, String browserPackage) {
-        try {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-            intent.setPackage(browserPackage);
-            startActivity(intent);
-        } catch (ActivityNotFoundException e) {
-            Toast.makeText(this, "Selected browser is not installed.", Toast.LENGTH_SHORT).show();
-        }
+        drawerLayout.closeDrawers();
+        return true;
     }
 
     private void updateUserInfoInDrawer() {
@@ -221,45 +242,27 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private boolean handleNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.nav_subscription) startActivity(new Intent(this, SubscriptionActivity.class));
-        else if (id == R.id.nav_history) startActivity(new Intent(this, HistoryActivity.class));
-        else if (id == R.id.nav_settings) startActivity(new Intent(this, SettingsActivity.class));
-        else if (id == R.id.nav_privacy) startActivity(new Intent(this, PrivacyPolicyActivity.class));
-        else if (id == R.id.nav_logout) {
-            Toast.makeText(this, "👋 Logging out...", Toast.LENGTH_SHORT).show();
-            FirebaseAuth.getInstance().signOut();
-            mGoogleSignInClient.signOut();
-            startActivity(new Intent(this, LoginActivity.class));
-            finish();
-        }
-        drawerLayout.closeDrawers();
-        return true;
-    }
-
     private void checkInstalledApps() {
         PackageManager pm = getPackageManager();
         List<ApplicationInfo> apps = pm.getInstalledApplications(PackageManager.GET_META_DATA);
-        StringBuilder maliciousApps = new StringBuilder();
+        StringBuilder detected = new StringBuilder();
 
         for (ApplicationInfo app : apps) {
             String pkg = app.packageName.toLowerCase();
             if (pkg.contains("malware") || pkg.contains("spyware") || pkg.contains("trojan")) {
-                maliciousApps.append("⚠️ ").append(pkg).append("\n");
+                detected.append("\u26a0\ufe0f ").append(pkg).append("\n");
             }
         }
 
-        if (maliciousApps.length() > 0) {
-            Toast.makeText(this, "⚠️ Malicious Apps:\n" + maliciousApps, Toast.LENGTH_LONG).show();
+        if (detected.length() > 0) {
+            Toast.makeText(this, "Malicious Apps Found:\n" + detected, Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(this, "✅ No Malicious Apps Found!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "\u2705 No Malicious Apps Detected", Toast.LENGTH_LONG).show();
         }
     }
 
     private void requestNotificationAccess() {
-        Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
-        startActivity(intent);
+        startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
     }
 
     private void checkNotificationPermission() {
@@ -273,15 +276,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions,
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_NOTIFICATION_PERMISSION) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "✅ Notifications permission granted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "\u2705 Notification permission granted", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "❌ Notifications permission denied", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "\u274c Notification permission denied", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -289,14 +291,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                Toast.makeText(this, "✅ Signed in as: " + account.getEmail(), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "\u2705 Signed in as: " + account.getEmail(), Toast.LENGTH_LONG).show();
             } catch (ApiException e) {
-                Toast.makeText(this, "❌ Sign-in failed: " + e.getStatusCode(), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "\u274c Sign-in failed", Toast.LENGTH_LONG).show();
             }
         }
     }

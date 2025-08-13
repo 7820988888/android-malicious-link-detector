@@ -59,7 +59,12 @@
         <activity android:name=".PrivacyPolicyActivity" android:exported="false" />
         <activity android:name=".AboutActivity" android:exported="false" />
 
-        <!-- ✅ Clipboard Listener: Foreground Service support -->
+        <!-- ✅ Additional Safe Website Activities -->
+        <activity android:name=".SafeWebsiteActivity" android:exported="false" />
+        <activity android:name=".ShoppingSitesActivity" android:exported="false" />
+        <activity android:name=".FoodSitesActivity" android:exported="false" />
+
+        <!-- ✅ Clipboard Listener -->
         <service
             android:name=".ClipboardListenerService"
             android:enabled="true"

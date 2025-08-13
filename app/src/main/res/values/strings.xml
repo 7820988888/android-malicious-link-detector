@@ -21,7 +21,7 @@
 
         <!-- ✅ Firebase + Google Sign-In -->
         <string name="google_api_key">AIzaSyBf2zzYzq6emUWjwncYPMdVlaQiAb2f-l8</string>
-        <string name="default_web_client_id">778214727200-ibdrojul6f7sqeveqfjtv6sotiopb7li.apps.googleusercontent.com</string>
+        <string name="default_web_client_id">778214727200-2kakgbud9b442mvd1lufhktccd1625r1.apps.googleusercontent.com</string>
 
         <!-- ✅ 🛡️ VirusTotal API Key -->
         <string name="virustotal_api_key">2fd34ef2f7b2a76b4cce6b5cd0903378c8ec18ea490c3712d34dbde9e06e121f</string>

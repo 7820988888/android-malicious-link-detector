@@ -35,7 +35,7 @@
                 android:gravity="center"
                 android:layout_gravity="center">
 
-                <!-- 🔹 Reusable Card Style -->
+                <!-- Scan URL Card -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/scanUrlCard"
                     android:layout_width="match_parent"
@@ -87,7 +87,7 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <!-- 🔒 App Safety Card -->
+                <!-- App Safety Card -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/appSafetyCard"
                     android:layout_width="match_parent"
@@ -138,7 +138,7 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <!-- 💳 Subscription Card -->
+                <!-- Subscription Card -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/subscriptionCard"
                     android:layout_width="match_parent"
@@ -183,6 +183,57 @@
                                 android:layout_height="wrap_content"
                                 android:text="Plan: Free (Tap to Upgrade)"
                                 android:textColor="#A68CF1"
+                                android:textSize="14sp"
+                                android:paddingTop="4dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- 🌐 Safe Websites Card (NEW) -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/safeWebsiteCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:layout_marginBottom="24dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="6dp"
+                    app:cardBackgroundColor="#1E1E2F">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:padding="20dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@android:drawable/ic_menu_view"
+                            app:tint="#FFA500" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:paddingStart="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Safe Websites"
+                                android:textColor="#FFFFFF"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Browse trusted links"
+                                android:textColor="#FFA500"
                                 android:textSize="14sp"
                                 android:paddingTop="4dp" />
                         </LinearLayout>

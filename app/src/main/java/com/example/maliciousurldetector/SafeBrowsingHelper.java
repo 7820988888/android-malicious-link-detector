@@ -29,6 +29,10 @@ public class SafeBrowsingHelper {
         String apiKey = context.getString(R.string.google_api_key);
         String endpoint = "https://safebrowsing.googleapis.com/v4/threatMatches:find?key=" + apiKey;
 
+        // 🔁 Always clear previous scan result for this URL (to allow repeat alerts)
+        SharedPreferences prefs = context.getSharedPreferences("ScanPrefs", Context.MODE_PRIVATE);
+        prefs.edit().remove(url).apply();
+
         try {
             JSONObject requestBody = new JSONObject();
             requestBody.put("client", new JSONObject()
@@ -53,9 +57,12 @@ public class SafeBrowsingHelper {
                     requestBody,
                     response -> {
                         boolean isDangerous = response.has("matches");
+
+                        // ✅ Always trigger alert if match found
                         if (isDangerous) {
                             triggerAllAlerts(context, url);
                         }
+
                         callback.onResult(isDangerous);
                     },
                     error -> {
@@ -71,7 +78,7 @@ public class SafeBrowsingHelper {
                 }
             };
 
-            request.setShouldCache(false); // ❗Disable Volley caching
+            request.setShouldCache(false); // ❌ Disable Volley cache
             Volley.newRequestQueue(context).add(request);
 
         } catch (JSONException e) {
@@ -100,19 +107,10 @@ public class SafeBrowsingHelper {
         });
     }
 
-    // 🔔 Alert - Vibrate, Alarm, and Notification
+    // 🔔 Vibrate + Sound + Notification
     public static void triggerAllAlerts(Context context, String url) {
-        SharedPreferences prefs = context.getSharedPreferences("AppSettingsPrefs", Context.MODE_PRIVATE);
-        boolean notificationsEnabled = prefs.getBoolean("notifications_enabled", true);
-        boolean soundEnabled = prefs.getBoolean("notification_sound", true);
-
-        if (notificationsEnabled) {
-            NotificationUtils.sendNotification(context, "⚠️ Malicious URL Detected", url);
-        }
-
-        if (soundEnabled) {
-            AlarmUtils.playAlarm(context);
-        }
+        NotificationUtils.sendNotification(context, "⚠️ Malicious URL Detected", url);
+        AlarmUtils.playAlarm(context);
 
         Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         if (vibrator != null) {

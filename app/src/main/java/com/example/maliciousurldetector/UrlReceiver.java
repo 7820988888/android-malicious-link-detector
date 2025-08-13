@@ -9,15 +9,12 @@ public class UrlReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent != null && intent.getAction() != null && intent.getAction().equals(Intent.ACTION_SEND)) {
+        if (intent != null && Intent.ACTION_SEND.equals(intent.getAction())) {
             String url = intent.getStringExtra(Intent.EXTRA_TEXT);
             if (url != null && !url.isEmpty()) {
 
-                // ❌ REMOVE this check to always scan
-                // if (ScannedUrlStore.isAlreadyScanned(context, url)) {
-                //     Log.d("UrlReceiver", "URL already scanned: " + url);
-                //     return;
-                // }
+                // ✅ Remove duplicate check — Always scan the URL
+                Log.d("UrlReceiver", "Received URL to scan: " + url);
 
                 Intent serviceIntent = new Intent(context, URLCheckService.class);
                 serviceIntent.putExtra("malicious_url", url);

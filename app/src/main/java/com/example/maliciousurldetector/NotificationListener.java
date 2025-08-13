@@ -74,6 +74,7 @@ public class NotificationListener extends NotificationListenerService {
                 if (isDangerous) {
                     sendNotification(url);
                     showToast("❌ Malicious URL Detected:\n" + url);
+
                 } else {
                     showToast("✅ Safe URL:\n" + url);
                 }

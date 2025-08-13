@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -34,15 +35,15 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_dashboard);
 
-        // 🔐 Firebase + Google
+        // 🔐 Firebase + Google Sign-In setup
         mAuth = FirebaseAuth.getInstance();
         mGoogleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN);
 
-        // 🧭 Toolbar
+        // 🧭 Toolbar setup
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // 🧭 Drawer
+        // 🧭 Drawer setup
         drawerLayout = findViewById(R.id.drawer_layout);
         navView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -54,10 +55,10 @@ public class DashboardActivity extends AppCompatActivity {
         toggle.syncState();
         navView.setNavigationItemSelectedListener(this::handleNavigationItemSelected);
 
-        // ✅ Show user info in drawer + toolbar
+        // 👤 Show user info in navigation drawer
         updateUserInfoInDrawer();
 
-        // 💡 Dashboard Cards
+        // 🧩 Dashboard Card Clicks
         findViewById(R.id.scanUrlCard).setOnClickListener(v ->
                 startActivity(new Intent(this, MainActivity.class)));
 
@@ -70,10 +71,12 @@ public class DashboardActivity extends AppCompatActivity {
         findViewById(R.id.subscriptionCard).setOnClickListener(v ->
                 startActivity(new Intent(this, SubscriptionActivity.class)));
 
-
+        // ✅ Safe Website Card click handler added
+        findViewById(R.id.safeWebsiteCard).setOnClickListener(v ->
+                startActivity(new Intent(this, SafeWebsiteActivity.class)));
     }
 
-    // 🔄 Update Drawer Header with User Info
+    // 👤 Update Drawer Header with User Info
     private void updateUserInfoInDrawer() {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
@@ -85,16 +88,12 @@ public class DashboardActivity extends AppCompatActivity {
             userName.setText(user.getDisplayName() != null ? user.getDisplayName() : "User");
             userEmail.setText(user.getEmail());
 
-           // if (getSupportActionBar() != null) {
-               // getSupportActionBar().setSubtitle(user.getEmail()); // show email in toolbar
-           // }
-
-            // Optional: Set profileImage using Glide if photo available
+            // Optional: Load profile image if available
             // Glide.with(this).load(user.getPhotoUrl()).into(profileImage);
         }
     }
 
-    // ☰ Handle Navigation Drawer Clicks
+    // ☰ Navigation Drawer Clicks
     private boolean handleNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
@@ -109,12 +108,24 @@ public class DashboardActivity extends AppCompatActivity {
         } else if (id == R.id.nav_logout) {
             Toast.makeText(this, "🚪 Logging out...", Toast.LENGTH_SHORT).show();
             mAuth.signOut();
-            if (mGoogleSignInClient != null) mGoogleSignInClient.signOut();
+            if (mGoogleSignInClient != null) {
+                mGoogleSignInClient.signOut();
+            }
             startActivity(new Intent(this, LoginActivity.class));
             finish();
         }
 
         drawerLayout.closeDrawers();
         return true;
+    }
+
+    // 🔙 Handle back button for drawer
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 }

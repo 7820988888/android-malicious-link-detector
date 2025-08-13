@@ -15,31 +15,24 @@ public class URLCheckService extends Service {
             String maliciousUrl = intent.getStringExtra("malicious_url");
 
             if (maliciousUrl != null && !maliciousUrl.isEmpty()) {
-                Log.d("URLCheckService", "🔍 Checking URL: " + maliciousUrl);
+                Log.d("URLCheckService", "🔍 Checking URL via VirusTotal: " + maliciousUrl);
 
-                // 🧠 Optional: Remove this check to allow rescanning every time
-                // if (ScannedUrlStore.isAlreadyScanned(maliciousUrl)) {
-                //     Log.w("URLCheckService", "⚠️ Already scanned: " + maliciousUrl);
-                //     NotificationHelper.showSecurityAlert(getApplicationContext(), maliciousUrl, "Previously Detected");
-                //     return START_NOT_STICKY;
-                // }
-
-                // 🔄 Scan every time (even if URL is repeated)
-                UrlScanner.scan(getApplicationContext(), maliciousUrl, new UrlScanner.ScanCallback() {
+                // VirusTotalHelper वापरत आहे
+                VirusTotalHelper.checkUrl(getApplicationContext(), maliciousUrl, new VirusTotalHelper.ResultCallback() {
                     @Override
-                    public void onResult(boolean isMalicious, String source) {
+                    public void onResult(boolean isMalicious) {
                         if (isMalicious) {
                             ScannedUrlStore.addMaliciousUrl(maliciousUrl);
-                            NotificationHelper.showSecurityAlert(getApplicationContext(), maliciousUrl, source);
-                            Log.w("URLCheckService", "🚨 Detected malicious URL from " + source);
+                            NotificationHelper.showSecurityAlert(getApplicationContext(), maliciousUrl, "VirusTotal");
+                            Log.w("URLCheckService", "🚨 VirusTotal detected malicious URL");
                         } else {
-                            Log.i("URLCheckService", "✅ URL is safe: " + maliciousUrl);
+                            Log.i("URLCheckService", "✅ VirusTotal marked URL safe");
                         }
                     }
 
                     @Override
                     public void onError(String error) {
-                        Log.e("URLCheckService", "❌ Error during scan: " + error);
+                        Log.e("URLCheckService", "❌ VirusTotal error: " + error);
                     }
                 });
             }
